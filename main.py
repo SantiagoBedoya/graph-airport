@@ -29,9 +29,6 @@ class App(Tk):
         self.render()
 
     def render(self):
-
-
-
         for airport, connections in self.graph.items():
             print(f"drawing airport {airport.name}, connections: {len(connections)}")
             self.drawer.draw_airport(airport)
