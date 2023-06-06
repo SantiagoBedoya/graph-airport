@@ -10,13 +10,13 @@ class App(Tk):
         self.title("Graph Airport")
         self.minsize(width=1000, height=800)
 
-        a = Airport(200, 10, "a")
-        b = Airport(600, 80, "b")
-        c = Airport(10, 150, "c")
-        d = Airport(600, 220, "d")
-        e = Airport(10, 290, "e")
-        f = Airport(600, 360, "f")
-        g = Airport(10, 430, "g")
+        a = Airport(200, 10, "a", "0")
+        b = Airport(600, 80, "b", "0")
+        c = Airport(10, 150, "c", "0")
+        d = Airport(600, 220, "d", "0")
+        e = Airport(10, 290, "e", "0")
+        f = Airport(600, 360, "f", "0")
+        g = Airport(10, 430, "g", "0")
 
         self.graph = Graph()
         self.graph.add_node(a, [b, c])
@@ -27,7 +27,7 @@ class App(Tk):
         self.graph.add_node(f, [g])
         self.graph.add_node(g, [])
 
-        self.drawer = Drawer(self, 0.7, 1, 300, 10)
+        self.drawer = Drawer(self)
         self.render()
 
     def render(self):
