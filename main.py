@@ -1,5 +1,6 @@
 from tkinter import Tk
 from models.airport import Airport
+from graph.graph import Graph
 from components.drawer import Drawer
 
 
@@ -16,22 +17,21 @@ class App(Tk):
         e = Airport(10, 290, "e")
         f = Airport(600, 360, "f")
         g = Airport(10, 430, "g")
-        self.graph = {
-            a: [b, c],
-            b: [a, d],
-            c: [a, d, f],
-            d: [e],
-            e: [f],
-            f: [g],
-            g: [a],
-        }
+
+        self.graph = Graph()
+        self.graph.add_node(a, [b, c])
+        self.graph.add_node(b, [a, d])
+        self.graph.add_node(c, [a, d, f])
+        self.graph.add_node(d, [e])
+        self.graph.add_node(e, [f])
+        self.graph.add_node(f, [g])
+        self.graph.add_node(g, [])
 
         self.drawer = Drawer(self, 0.7, 1, 300, 10)
         self.render()
 
     def render(self):
-        for airport, connections in self.graph.items():
-            print(f"drawing airport {airport.name}, connections: {len(connections)}")
+        for airport, connections in self.graph.data.items():
             self.drawer.draw_airport(airport)
 
             for connection in connections:
