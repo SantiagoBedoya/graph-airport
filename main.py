@@ -2,13 +2,14 @@ from tkinter import Tk
 from models.airport import Airport
 from components.drawer import Drawer
 
+
 class App(Tk):
     def __init__(self) -> None:
         super().__init__()
         self.title("Graph Airport")
-        self.minsize(width=1000, height=650)
+        self.minsize(width=1000, height=800)
 
-        a = Airport(10, 10, "a")
+        a = Airport(200, 10, "a")
         b = Airport(600, 80, "b")
         c = Airport(10, 150, "c")
         d = Airport(600, 220, "d")
@@ -22,10 +23,10 @@ class App(Tk):
             d: [e],
             e: [f],
             f: [g],
-            g: [],
+            g: [a],
         }
 
-        self.drawer = Drawer(self, 700, 500, 300, 0)
+        self.drawer = Drawer(self, 0.7, 1, 300, 10)
         self.render()
 
     def render(self):
@@ -36,6 +37,7 @@ class App(Tk):
             for connection in connections:
                 self.drawer.draw_route(airport, connection)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app = App()
     app.mainloop()
