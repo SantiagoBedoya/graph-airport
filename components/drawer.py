@@ -25,4 +25,3 @@ class Drawer(Canvas):
             end_airport.y + 20,
             fill=color,
         )
-        pass
