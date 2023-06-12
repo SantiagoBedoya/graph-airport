@@ -31,3 +31,4 @@ class Graph:
         ax.margins(0.20)
         plt.axis("off")
         plt.show()
+        

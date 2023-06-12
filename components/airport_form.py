@@ -29,7 +29,7 @@ class AirportForm(Frame):
         self.code_label.grid(row=3, column=0)
         self.code_entry.grid(pady=5, row=3, column=1, columnspan=3)
 
-        # # coords
+        # coords
         self.x_label = Label(self, text="Coord x:")
         self.x_entry = Entry(self, width=12)
         self.x_label.grid(row=4, column=0)

@@ -9,8 +9,8 @@ class App(Tk):
     def __init__(self) -> None:
         super().__init__()
         self.title("Graph Airport")
-        self.minsize(width=1200, height=1000)
-        self.maxsize(width=1200, height=1000)
+        self.minsize(width=1200, height=600)
+        self.maxsize(width=1200, height=600)
 
         self.graph = Graph()
         self.airport_form = AirportForm(self)
