@@ -1,5 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+from ..graph.node import Node
+from ..models.airport import Airport
 
 
 class Graph:
@@ -8,10 +10,10 @@ class Graph:
         self.nodes = {} # {1: (0, 0), 2: (-1, 0.3), 3: (2, 0.17), 4: (4, 0.255), 5: (5, 0.03)}
 
 
-    def add_node(self, node, coords):
+    def add_node(self, node: Node, coords):
         self.nodes[node] = (coords[0], coords[1])
 
-    def add_edge(self, start, end):
+    def add_edge(self, start: str, end: str):
         self.g.add_edge(start, end)
 
     def render(self) -> None:
