@@ -9,7 +9,8 @@ class App(Tk):
     def __init__(self) -> None:
         super().__init__()
         self.title("Graph Airport")
-        self.minsize(width=1000, height=800)
+        self.minsize(width=350, height=650)
+        
 
         self.graph = Graph()
         self.airport_form = AirportForm(self)
@@ -18,24 +19,21 @@ class App(Tk):
 
         self.graph.add_node(1, (0, 0))
         self.graph.add_node(2, (1, 1))
-        self.graph.add_edge(1, 2)
+        # self.graph.add_edge(1, 2)
 
         self.render()
 
     def show_graph(self):
         self.graph.render()
-        pass
     
     def init_components(self):
         self.airport_form.render()
         self.route_form.render()
 
         self.graph_button.render()
-        pass 
 
     def render(self):
         self.init_components()
-        pass
 
 
 if __name__ == "__main__":

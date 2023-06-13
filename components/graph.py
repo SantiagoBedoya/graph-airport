@@ -11,7 +11,7 @@ class Graph:
     def add_node(self, node, coords):
         self.nodes[node] = (coords[0], coords[1])
 
-    def add_edge(self, start, end):
+    def add_edge(self, start: str, end: str):
         self.g.add_edge(start, end)
 
     def render(self) -> None:
@@ -31,3 +31,4 @@ class Graph:
         ax.margins(0.20)
         plt.axis("off")
         plt.show()
+        
