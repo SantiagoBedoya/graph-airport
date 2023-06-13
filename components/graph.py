@@ -1,32 +1,40 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-
+from models.airport import Airport
+from models.route import Route
 
 class Graph:
-    def __init__(self) -> None:
+    def __init__(self, airports:list[Airport], routes: list[Route]) -> None:
         self.g = nx.Graph()
-        self.nodes = {} # {1: (0, 0), 2: (-1, 0.3), 3: (2, 0.17), 4: (4, 0.255), 5: (5, 0.03)}
+        self.nodes = {}
 
+        self.airports_to_nodes(airports)
+        self.routes_to_edges(routes)
+
+        # self.add_edge('airport001', 'airport002', 4)
+        # self.add_edge('airport003', 'airport001', 7)
+        # self.add_edge('airport003', 'airport002', 7)
 
     def add_node(self, node, coords):
+        self.g.add_node(node)
         self.nodes[node] = (coords[0], coords[1])
 
-    def add_edge(self, start: str, end: str):
-        self.g.add_edge(start, end)
+    def add_edge(self, start: str, end: str, weight: int, time: int):
+        self.g.add_edge(start, end, weight=weight, time=time)
+
+    def airports_to_nodes(self, airports: list[Airport]):
+        for airport in airports:
+            self.add_node(airport.code, (airport.x, airport.y))
+    
+    def routes_to_edges(self, routes: list[Route]):
+        for route in routes:
+            self.add_edge(route.start.code, route.end.code, route.distance, route.time)
 
     def render(self) -> None:
-        nx.draw_networkx(
-            self.g,
-            self.nodes,
-            {
-                "font_size": 36,
-                "node_size": 3000,
-                "node_color": "white",
-                "edgecolors": "black",
-                "linewidths": 5,
-                "width": 5,
-            },
-        )
+        nx.draw_networkx_nodes(self.g, self.nodes, node_color="yellow")
+        nx.draw_networkx_edges(self.g, self.nodes, edge_color="gray")
+        nx.draw_networkx_labels(self.g, self.nodes)
+        nx.draw_networkx_edge_labels(self.g, self.nodes, edge_labels={(u, v): f"{d['weight']}km - {d['time']}min" for u, v, d in self.g.edges(data=True)})
         ax = plt.gca()
         ax.margins(0.20)
         plt.axis("off")
