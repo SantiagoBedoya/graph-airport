@@ -7,4 +7,4 @@ class GraphButton(Button):
         self.render()
 
     def render(self):
-        self.place(x = 500, y = 700)
+        self.grid(row=2, column=0)
