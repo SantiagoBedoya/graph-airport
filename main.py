@@ -11,7 +11,8 @@ class App(Tk):
     def __init__(self) -> None:
         super().__init__()
         self.title("Graph Airport")
-        self.minsize(width=350, height=650)
+        self.minsize(width=850, height=400)
+        self.maxsize(width=850, height=400)
 
         airport1 = Airport(10, 10, "Airport 1", "001")
         airport2 = Airport(15, 15, "Airport 2", "002")
