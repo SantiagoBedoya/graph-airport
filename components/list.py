@@ -2,7 +2,7 @@ from tkinter import Listbox, Tk, END, Label
 
 class List(Listbox):
     def __init__(self, master: Tk) -> None:
-        super().__init__(master, width=40)
+        super().__init__(master, width=40 )
         self.render()
 
     def add(self, item: str):
