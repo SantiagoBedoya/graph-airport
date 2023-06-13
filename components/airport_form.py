@@ -49,8 +49,8 @@ class AirportForm(Frame):
         try:
             name = self.name_entry.get()
             code = self.code_entry.get()
-            coord_x = int(self.x_entry.get())
-            coord_y = int(self.y_entry.get())
+            coord_x = float(self.x_entry.get())
+            coord_y = float(self.y_entry.get())
 
             self.save_airport(name, code, coord_x, coord_y)
             

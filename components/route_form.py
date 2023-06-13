@@ -47,8 +47,8 @@ class RouteForm(Frame):
         try:
             start = self.start_entry.get()
             end = self.end_entry.get()
-            distance = int(self.distance_entry.get())
-            time = int(self.time_entry.get())
+            distance = float(self.distance_entry.get())
+            time = float(self.time_entry.get())
 
             start_airport = self.find_airport_by_code(start)
             if start_airport == None:

@@ -1,6 +1,6 @@
 
 class Airport:
-    def __init__(self, x: int, y: int, name: str, code: str) -> None:
+    def __init__(self, x: float, y: float, name: str, code: str) -> None:
         self.x = x
         self.y = y
         self.name = name
