@@ -11,10 +11,6 @@ class Graph:
         self.airports_to_nodes(airports)
         self.routes_to_edges(routes)
 
-        # self.add_edge('airport001', 'airport002', 4)
-        # self.add_edge('airport003', 'airport001', 7)
-        # self.add_edge('airport003', 'airport002', 7)
-
     def add_node(self, node, coords):
         self.g.add_node(node)
         self.nodes[node] = (coords[0], coords[1])

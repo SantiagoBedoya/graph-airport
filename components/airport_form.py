@@ -8,7 +8,7 @@ class AirportForm(Frame):
         self.save_airport = save_airport
         self.airports = data
 
-        self.list = List(self)
+        self.list = List(self, 1, 0)
         self.render_items()
 
         self.render()
@@ -74,4 +74,4 @@ class AirportForm(Frame):
 
     def render(self):
         self.init_components()
-        self.grid(padx=4, row=0, column=0)
+        self.grid(padx=10, row=0, column=0)
