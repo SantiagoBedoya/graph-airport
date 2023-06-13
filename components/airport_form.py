@@ -1,14 +1,15 @@
-from tkinter import Frame, Tk, Entry, Label, Button
+from tkinter import Frame, Tk, Entry, Label, Button, END, messagebox
 from .list import List
+from models.airport import Airport
 
 class AirportForm(Frame):
-    def __init__(self, master: Tk) -> None:
+    def __init__(self, master: Tk, data: list[Airport], save_airport) -> None:
         super().__init__(master, width=250, height=500)
-        self.list = List(self)
+        self.save_airport = save_airport
+        self.airports = data
 
-        self.list.add('Test1')
-        self.list.add('Test2')
-        self.list.add('test3')
+        self.list = List(self)
+        self.render_items()
 
         self.render()
 
@@ -41,8 +42,35 @@ class AirportForm(Frame):
         self.y_entry.grid(padx=2,row=4, column=3)
 
         # button
-        self.save_button = Button(self, text="Save", width=37)
+        self.save_button = Button(self, text="Save", width=37, command=self.save_command)
         self.save_button.grid(pady=5, row=5, column=0, columnspan=4)
+
+    def save_command(self):
+        try:
+            name = self.name_entry.get()
+            code = self.code_entry.get()
+            coord_x = int(self.x_entry.get())
+            coord_y = int(self.y_entry.get())
+
+            self.save_airport(name, code, coord_x, coord_y)
+            
+            # reset fields
+            self.name_entry.delete(0, END)
+            self.code_entry.delete(0, END)
+            self.x_entry.delete(0, END)
+            self.y_entry.delete(0, END)
+
+            # clean and fill up the list
+            self.airports.append(Airport(coord_x, coord_y, name, code))
+            self.render_items()
+        except:
+            messagebox.showerror(title='Bad Request', message='All fields are required')
+
+    def render_items(self):
+        self.list.delete(0, END)
+        for airport in self.airports:
+            self.list.add(f"{airport.code} - {airport.name}")
+
 
     def render(self):
         self.init_components()

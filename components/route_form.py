@@ -1,8 +1,13 @@
-from tkinter import Frame, Tk, Entry, Label, Button
+from tkinter import Frame, Tk, Entry, Label, Button, END, messagebox
+from models.route import Route
 
 class RouteForm(Frame):
-    def __init__(self, master: Tk) -> None:
+    def __init__(self, master: Tk, data: list[str], save_route, find_airport_by_code) -> None:
         super().__init__(master, width=250, height=500)
+        self.save_route = save_route
+        self.find_airport_by_code = find_airport_by_code
+
+        self.routes = data
         self.render()
 
     def init_components(self):
@@ -35,8 +40,40 @@ class RouteForm(Frame):
         self.time_entry.grid(padx=2,row=3, column=3)
 
         # button
-        self.save_button = Button(self, text="Save", width=37)
+        self.save_button = Button(self, text="Save", width=37, command=self.save_command)
         self.save_button.grid(pady=5, row=5, column=0, columnspan=4)
+
+    def save_command(self):
+        try:
+            start = self.start_entry.get()
+            end = self.end_entry.get()
+            distance = int(self.distance_entry.get())
+            time = int(self.time_entry.get())
+
+            start_airport = self.find_airport_by_code(start)
+            if start_airport == None:
+                messagebox.showerror(title = 'Airport Not Found', message=f"Airport with code: {start} does not exist")
+
+            end_airport = self.find_airport_by_code(end)
+            if end_airport == None:
+                messagebox.showerror(title = 'Airport Not Found', message = f"Airport with code: {end} does not exist")
+
+            self.routes.append(Route(start_airport, end_airport, distance, time))
+            self.save_route(start, end, distance, time)
+
+            # # reset fields
+            self.start_entry.delete(0, END)
+            self.end_entry.delete(0, END)
+            self.distance_entry.delete(0, END)
+            self.time_entry.delete(0, END)
+        except:
+            messagebox.showerror(title='Bad Request', message="All fields are required")
+    
+    def render_items(self):
+        # self.list.delete(0, END)
+        # for route in self.routes:
+        #     self.list.add(f"{route.start.code} => {route.end.code}: {route.distance}km ({route.time})")
+        pass
 
     def render(self):
         self.init_components()
