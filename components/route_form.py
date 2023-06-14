@@ -7,11 +7,11 @@ class RouteForm(Frame):
         super().__init__(master, width=250, height=500)
         self.save_route = save_route
         self.find_airport_by_code = find_airport_by_code
+        self.routes = data
 
         self.list = List(self, 1, 0)
         self.render_items()
 
-        self.routes = data
         self.render()
 
     def init_components(self):
@@ -76,9 +76,9 @@ class RouteForm(Frame):
     def render_items(self):
         self.list.delete(0, END)
         for route in self.routes:
-            self.list.add(f"{route.start.code} => {route.end.code}: {route.distance}km ({route.time})")
+            self.list.add(f"{route.start.code} => {route.end.code}: {route.distance}km ({route.time}m)")
         pass
 
     def render(self):
         self.init_components()
-        self.grid(padx=50, row=0, column=1)
+        self.grid(padx=40, row=0, column=1)
