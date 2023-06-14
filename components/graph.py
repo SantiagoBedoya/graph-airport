@@ -31,7 +31,7 @@ class Graph:
         if search_by == 2:
             sby = "time"
         result = nx.dijkstra_path(self.g, from_airport.code, to_airport.code, weight=sby)
-        print(result)
+        return result
 
     def render(self) -> None:
         nx.draw_networkx_nodes(self.g, self.nodes, node_color="yellow")

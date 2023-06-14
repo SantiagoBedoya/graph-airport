@@ -1,4 +1,4 @@
-from tkinter import Tk
+from tkinter import Tk, messagebox
 from components.graph import Graph
 from components.airport_form import AirportForm
 from components.route_form import RouteForm
@@ -73,7 +73,7 @@ class App(Tk):
     def show_search_form(self):
         SearchForm(self, self.find_airport_by_code, self.search)
         pass
-    
+
     def generate_rand(self, min: int, max: int) -> int:
         return random.randint(min, max)
 
@@ -82,8 +82,12 @@ class App(Tk):
         # self.route_form.render()
 
     def search(self, from_airport: Airport, to_airport: Airport, search_by: int):
-        self.graph.search(from_airport, to_airport, search_by)
-        pass
+        result = self.graph.search(from_airport, to_airport, search_by)
+        message = ""
+        for i, airport in enumerate(result):
+            message += f"{i+1}. {airport}\n"
+
+        messagebox.showinfo(title="Shortest route", message=message)
 
 
 
