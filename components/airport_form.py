@@ -3,7 +3,16 @@ from .list import List
 from models.airport import Airport
 
 class AirportForm(Frame):
-    def __init__(self, master: Tk, data: list[Airport], save_airport) -> None:
+    """Airport form.
+    
+    This class contains the fields and components that make up the form to create the airports.
+
+    Args:
+        data list(Airport): List of airports to display on the screen
+        save_airport: Function that is responsible for displaying the airport in the graph
+    """
+
+    def __init__(self, master: Tk, data: list[Airport], save_airport:any) -> None:
         super().__init__(master, width=250, height=500)
         self.save_airport = save_airport
         self.airports = data
@@ -14,6 +23,11 @@ class AirportForm(Frame):
         self.render()
 
     def init_components(self):
+        """Init components
+        
+        This function initializes the form components
+        """
+
         #title
         self.title_label = Label(self, text="Airports")
         self.title_label.grid(row=0, column=0, )
@@ -46,6 +60,11 @@ class AirportForm(Frame):
         self.save_button.grid(pady=5, row=5, column=0, columnspan=4)
 
     def save_command(self):
+        """Save command
+        
+        This method is responsible for creating a new airport and adding it to the list
+        """
+
         try:
             name = self.name_entry.get()
             code = self.code_entry.get()
@@ -67,11 +86,19 @@ class AirportForm(Frame):
             messagebox.showerror(title='Bad Request', message='All fields are required')
 
     def render_items(self):
+        """List airports
+        
+        This function is responsible for listing the airport data in the form
+        """
         self.list.delete(0, END)
         for airport in self.airports:
             self.list.add(f"{airport.code} - {airport.name}")
 
 
     def render(self):
+        """Render
+        
+        This function ensures that the form is displayed.
+        """
         self.init_components()
         self.grid(padx=10, row=0, column=0)

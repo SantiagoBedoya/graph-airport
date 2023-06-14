@@ -10,6 +10,10 @@ from models.route import Route
 import random
 
 class App(Tk):
+    """App
+    
+    This class is responsible for executing the entire application.
+    """
     def __init__(self) -> None:
         super().__init__()
         self.title("Graph Airport")
@@ -35,53 +39,89 @@ class App(Tk):
 
         
         self.routes = [
-            Route(airport1, airport2, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
-            Route(airport1, airport5, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
-            Route(airport2, airport3, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
-            Route(airport3, airport6, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
-            Route(airport3, airport7, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
-            Route(airport2, airport6, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
-            Route(airport2, airport5, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
-            Route(airport1, airport4, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
-            Route(airport4, airport5, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
-            Route(airport5, airport6, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
-            Route(airport6, airport7, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
+            Route(airport1, airport2, random.randint(200, 1200), random.randint(30, 240)),
+            Route(airport1, airport5, random.randint(200, 1200), random.randint(30, 240)),
+            Route(airport2, airport3, random.randint(200, 1200), random.randint(30, 240)),
+            Route(airport3, airport6, random.randint(200, 1200), random.randint(30, 240)),
+            Route(airport3, airport7, random.randint(200, 1200), random.randint(30, 240)),
+            Route(airport2, airport6, random.randint(200, 1200), random.randint(30, 240)),
+            Route(airport2, airport5, random.randint(200, 1200), random.randint(30, 240)),
+            Route(airport1, airport4, random.randint(200, 1200), random.randint(30, 240)),
+            Route(airport4, airport5, random.randint(200, 1200), random.randint(30, 240)),
+            Route(airport5, airport6, random.randint(200, 1200), random.randint(30, 240)),
+            Route(airport6, airport7, random.randint(200, 1200), random.randint(30, 240)),
         ]
 
         self.graph = Graph(self.airports, self.routes)
         self.airport_form = AirportForm(self, self.airports, self.save_airport)
-        self.route_form = RouteForm(self, self.routes, self.save_route, self.find_airport_by_code)
+        self.route_form = RouteForm(self, self.routes, self.save_route, self.find_airport_by_code, self.graph.remove_edge)
         self.graph_button = GraphButton(self, self.show_graph)
         self.search_button = SearchButton(self, self.show_search_form)
 
     def find_airport_by_code(self, code: str):
+        """Find airport by code
+        
+        This method is responsible for finding an airport based on its code
+
+        Args:
+            code (str): airport code to be searched
+        """
         for airport in self.airports:
             if airport.code == code:
                 return airport
             
         return None
 
-    def save_airport(self, name: str, code: str, coord_x: int, coord_y: int):
+    def save_airport(self, code: str, coord_x: int, coord_y: int):
+        """Save airport
+        
+        This method is responsible for converting an airport into a node to be graphed in the graph
+
+        Args:
+            code (str): airport code
+            coord_x (int): location of the airport in x
+            coord_y (int): location of the airport in y
+        """
         self.graph.add_node(code, (coord_x, coord_y))
 
     def save_route(self, start, end, distance, time):
+        """Save route
+        
+        This method saves a path to convert it into an edge
+
+        Args:
+            start: departure airport
+            end: arrive airport
+            distance: distance between airports
+            time: time between airports
+        """
         self.graph.add_edge(start, end, distance, time)
 
     def show_graph(self):
+        """Show graph
+        
+        This method shows the graph of routes between airports
+        """
         self.graph.render()
 
     def show_search_form(self):
-        SearchForm(self, self.find_airport_by_code, self.search)
-        pass
+        """Show search form
+        
+        This method executes the instance so that the route search form is displayed.
+        """
+        SearchForm(self, self.find_airport_by_code, self.search) 
 
-    def generate_rand(self, min: int, max: int) -> int:
-        return random.randint(min, max)
-
-    def init_components(self):
-        self.airport_form.render()
-        # self.route_form.render()
 
     def search(self, from_airport: Airport, to_airport: Airport, search_by: int):
+        """Search
+        
+        This method is responsible for displaying the result of the most optimal route
+
+        Args:
+            from_aiport (Airport): departure airport
+            to_airport (Airport): arrival airport
+            search_by (int): if you search by distance the indicator will be 1, but if you search by time the indicator will be 2
+        """
         result = self.graph.search(from_airport, to_airport, search_by)
         message = ""
         for i, airport in enumerate(result):
