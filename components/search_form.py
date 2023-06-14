@@ -3,7 +3,7 @@ from tkinter import Toplevel, Entry, Label, Radiobutton, IntVar, Button, message
 
 class SearchForm(Toplevel):
     def __init__(self, master, find_airport_by_code, search) -> None:
-        super().__init__(master, width=500)
+        super().__init__(master, width=300)
         self.search_by_var = IntVar()
         self.search = search
         self.find_airport_by_code = find_airport_by_code
@@ -14,30 +14,30 @@ class SearchForm(Toplevel):
         # from
         from_label = Label(self, text="From")
         from_label.grid(row=0, column=0)
-        self.from_entry = Entry(self, width=100)
-        self.from_entry.grid(row=1, column=0)
+        self.from_entry = Entry(self, width=30)
+        self.from_entry.grid(padx=5, row=0, column=1, columnspan=2)
 
         # to
         to_label = Label(self, text="To")
-        to_label.grid(row=2, column=0)
-        self.to_entry = Entry(self, width=100)
-        self.to_entry.grid(row=3, column=0)
+        to_label.grid(row=1, column=0)
+        self.to_entry = Entry(self, width=30)
+        self.to_entry.grid(pady=5, row=1, column=1, columnspan=2)
 
         # search by
         search_by_label = Label(self, text="Search by")
-        search_by_label.grid(row=4, column=0)
+        search_by_label.grid(row=2, column=0)
         time_radio_button = Radiobutton(
             self, text="Time", value=1, variable=self.search_by_var
         )
-        time_radio_button.grid(row=5, column=0)
+        time_radio_button.grid(row=2, column=1)
         distance_radio_button = Radiobutton(
             self, text="Distance", value=2, variable=self.search_by_var
         )
-        distance_radio_button.grid(row=6, column=0)
+        distance_radio_button.grid(row=2, column=2)
 
         # search button
         search_button = Button(self, text="Search", command=self.search_command)
-        search_button.grid(row=7, column=0)
+        search_button.grid(pady=5, row=3, column=0, columnspan= 3)
 
     def search_command(self):
         

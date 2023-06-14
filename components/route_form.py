@@ -78,9 +78,9 @@ class RouteForm(Frame):
     def render_items(self):
         self.list.delete(0, END)
         for route in self.routes:
-            self.list.add(f"{route.start.code} => {route.end.code}: {route.distance}km ({route.time})")
+            self.list.add(f"{route.start.code} => {route.end.code}: {route.distance}km ({route.time}m)")
         pass
 
     def render(self):
         self.init_components()
-        self.grid(padx=50, row=0, column=1)
+        self.grid(padx=40, row=0, column=1)
