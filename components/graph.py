@@ -26,6 +26,13 @@ class Graph:
         for route in routes:
             self.add_edge(route.start.code, route.end.code, route.distance, route.time)
 
+    def search(self, from_airport: Airport, to_airport: Airport, search_by: int = 1):
+        sby = "weight"
+        if search_by == 2:
+            sby = "time"
+        result = nx.dijkstra_path(self.g, from_airport.code, to_airport.code, weight=sby)
+        print(result)
+
     def render(self) -> None:
         nx.draw_networkx_nodes(self.g, self.nodes, node_color="yellow")
         nx.draw_networkx_edges(self.g, self.nodes, edge_color="gray")
