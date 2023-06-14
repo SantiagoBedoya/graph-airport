@@ -1,8 +1,8 @@
 from tkinter import Button, Tk
 
-class GraphButton(Button):
+class SearchButton(Button):
     def __init__(self, master: Tk, command: any, ) -> None:
-        super().__init__(master, text="Show Graph", width=90, command=command)
+        super().__init__(master, text="Search", width=90, command=command)
 
         self.render()
 

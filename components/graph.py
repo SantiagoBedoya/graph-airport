@@ -11,10 +11,6 @@ class Graph:
         self.airports_to_nodes(airports)
         self.routes_to_edges(routes)
 
-        # self.add_edge('airport001', 'airport002', 4)
-        # self.add_edge('airport003', 'airport001', 7)
-        # self.add_edge('airport003', 'airport002', 7)
-
     def add_node(self, node, coords):
         self.g.add_node(node)
         self.nodes[node] = (coords[0], coords[1])
@@ -29,6 +25,13 @@ class Graph:
     def routes_to_edges(self, routes: list[Route]):
         for route in routes:
             self.add_edge(route.start.code, route.end.code, route.distance, route.time)
+
+    def search(self, from_airport: Airport, to_airport: Airport, search_by: int = 1):
+        sby = "weight"
+        if search_by == 2:
+            sby = "time"
+        result = nx.dijkstra_path(self.g, from_airport.code, to_airport.code, weight=sby)
+        print(result)
 
     def render(self) -> None:
         nx.draw_networkx_nodes(self.g, self.nodes, node_color="yellow")
