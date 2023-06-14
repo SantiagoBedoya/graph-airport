@@ -34,7 +34,7 @@ class App(Tk):
         self.graph = Graph(self.airports, self.routes)
         self.airport_form = AirportForm(self, self.airports, self.save_airport)
         self.route_form = RouteForm(self, self.routes, self.save_route, self.find_airport_by_code)
-        # self.graph_button = GraphButton(self, self.show_graph)
+        self.graph_button = GraphButton(self, self.show_graph)
         self.search_button = SearchButton(self, self.show_search_form)
 
     def find_airport_by_code(self, code: str):
