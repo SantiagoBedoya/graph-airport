@@ -2,6 +2,10 @@ from tkinter import Toplevel, Entry, Label, Radiobutton, IntVar, Button, message
 
 
 class SearchForm(Toplevel):
+    """Search form
+    
+    This class contains the components and methods necessary to search for optimal routes.
+    """
     def __init__(self, master, find_airport_by_code, search) -> None:
         super().__init__(master, width=300)
         self.search_by_var = IntVar()
@@ -11,6 +15,10 @@ class SearchForm(Toplevel):
         self.init_components()
 
     def init_components(self):
+        """Init components
+        
+        This function initializes the form components
+        """
         # from
         from_label = Label(self, text="From")
         from_label.grid(row=0, column=0)
@@ -40,7 +48,10 @@ class SearchForm(Toplevel):
         search_button.grid(pady=5, row=3, column=0, columnspan= 3)
 
     def search_command(self):
+        """Search command
         
+        This method is responsible for executing the action so that the most optimal route is displayed.
+        """
         from_val = self.from_entry.get()
         from_airport = self.find_airport_by_code(from_val)
         if from_airport == None:
