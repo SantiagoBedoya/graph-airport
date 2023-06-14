@@ -7,7 +7,7 @@ from components.search_button import SearchButton
 from components.search_form import SearchForm
 from models.airport import Airport
 from models.route import Route
-
+import random
 
 class App(Tk):
     def __init__(self) -> None:
@@ -16,19 +16,36 @@ class App(Tk):
         self.minsize(width=800, height=400)
         self.maxsize(width=800, height=400)
 
-        airport1 = Airport(10, 10, "Airport 1", "001")
-        airport2 = Airport(15, 15, "Airport 2", "002")
-        airport3 = Airport(0, 0, "Airport 3", "003")
+        airport1 = Airport(-3, 9, "Airport 1", "001")
+        airport2 = Airport(0, 15, "Airport 2", "002")
+        airport3 = Airport(5, 18, "Airport 3", "003")
+        airport4 = Airport(0, 6, "Airport 4", "004")
+        airport5 = Airport(3, 9, "Airport 5", "005")
+        airport6 = Airport(5, 15, "Airport 6", "006")
+        airport7 = Airport(10, 18, "Airport 7", "007")
         self.airports = [
             airport1,
             airport2,
             airport3,
+            airport4,
+            airport5,
+            airport6,
+            airport7
         ]
 
         
         self.routes = [
-            Route(airport1, airport2, 200, 30),
-            Route(airport1, airport3, 1000, 120),
+            Route(airport1, airport2, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
+            Route(airport1, airport5, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
+            Route(airport2, airport3, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
+            Route(airport3, airport6, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
+            Route(airport3, airport7, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
+            Route(airport2, airport6, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
+            Route(airport2, airport5, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
+            Route(airport1, airport4, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
+            Route(airport4, airport5, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
+            Route(airport5, airport6, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
+            Route(airport6, airport7, self.generate_rand(200, 1200), self.generate_rand(30, 240)),
         ]
 
         self.graph = Graph(self.airports, self.routes)
@@ -56,6 +73,13 @@ class App(Tk):
     def show_search_form(self):
         SearchForm(self, self.find_airport_by_code, self.search)
         pass
+    
+    def generate_rand(self, min: int, max: int) -> int:
+        return random.randint(min, max)
+
+    def init_components(self):
+        self.airport_form.render()
+        # self.route_form.render()
 
     def search(self, from_airport: Airport, to_airport: Airport, search_by: int):
         self.graph.search(from_airport, to_airport, search_by)
