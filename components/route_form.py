@@ -7,11 +7,11 @@ class RouteForm(Frame):
         super().__init__(master, width=250, height=500)
         self.save_route = save_route
         self.find_airport_by_code = find_airport_by_code
+        self.routes = data
 
         self.list = List(self, 1, 0)
         self.render_items()
 
-        self.routes = data
         self.render()
 
     def init_components(self):
@@ -57,10 +57,12 @@ class RouteForm(Frame):
             start_airport = self.find_airport_by_code(start)
             if start_airport == None:
                 messagebox.showerror(title = 'Airport Not Found', message=f"Airport with code: {start} does not exist")
+                return
 
             end_airport = self.find_airport_by_code(end)
             if end_airport == None:
                 messagebox.showerror(title = 'Airport Not Found', message = f"Airport with code: {end} does not exist")
+                return
 
             self.routes.append(Route(start_airport, end_airport, distance, time))
             self.save_route(start, end, distance, time)
