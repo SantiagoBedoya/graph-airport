@@ -51,16 +51,18 @@ class RouteForm(Frame):
         try:
             start = self.start_entry.get()
             end = self.end_entry.get()
-            distance = int(self.distance_entry.get())
-            time = int(self.time_entry.get())
+            distance = float(self.distance_entry.get())
+            time = float(self.time_entry.get())
 
             start_airport = self.find_airport_by_code(start)
             if start_airport == None:
                 messagebox.showerror(title = 'Airport Not Found', message=f"Airport with code: {start} does not exist")
+                return
 
             end_airport = self.find_airport_by_code(end)
             if end_airport == None:
                 messagebox.showerror(title = 'Airport Not Found', message = f"Airport with code: {end} does not exist")
+                return
 
             self.routes.append(Route(start_airport, end_airport, distance, time))
             self.save_route(start, end, distance, time)
